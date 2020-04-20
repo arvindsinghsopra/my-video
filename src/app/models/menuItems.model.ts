@@ -9,5 +9,6 @@ export class MenuItems {
         this.value = valuel;
         this.disabled = disabledl;
         this.defaultColor = defaultColorl;
+      
     }
 };
