@@ -1,0 +1,22 @@
+include:
+    - project: "dep/library/ci-library"
+      ref: production
+      file: "/stages/build.yml"
+
+image: node:latest
+
+test:
+    stage: test
+    script:
+        - echo node -v
+        - echo ng --version
+        - ng test
+
+build-application:
+    stage: build-application
+    script: ng build
+    
+stages:
+    - build-application
+    - build-image
+    - test
