@@ -13,7 +13,7 @@ pipeline {
                 echo 'Waiting 5 minutes for deployment to complete prior starting smoke testing'
                 echo 'New pull request changes'
                 sh 'node --version'
-                sh 'npm --version
+                sh 'npm --version'
                 sh 'npm run install'
                 echo 'Install completed'
                 sh 'npm install'
