@@ -10,8 +10,7 @@ pipeline {
       steps {
         sh 'node --version'
         sh 'npm --version'
-        sh 'npm install -g @angular/cli@latest -ddd'
-        sh 'npm init -force'
+        sh 'npm install'
       }
     }
   }
