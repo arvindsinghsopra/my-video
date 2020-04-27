@@ -1,14 +1,17 @@
 pipeline {
   agent {
     node {
-      label 'any'
+      label 'nodejs'
     }
 
   }
   stages {
     stage('Build') {
       steps {
-        sh 'npm install'
+        sh 'node --version'
+        sh 'npm --version'
+        sh 'npm install -g @angular/cli@latest -ddd'
+        sh 'npm init -force'
       }
     }
   }
