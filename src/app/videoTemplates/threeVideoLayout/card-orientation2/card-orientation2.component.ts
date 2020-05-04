@@ -19,9 +19,9 @@ export class CardOrientation2Component implements OnInit, AfterViewInit {
   loadedVttone = true;
   loadedVtttwo = true;
   loadedVttthree = true;
-  @ViewChild('videoOne', { static: false }) videoOne: ElementRef;
-  @ViewChild('videoTwo', { static: false }) videoTwo: ElementRef;
-  @ViewChild('videoThree', { static: false }) videoThree: ElementRef;
+  @ViewChild('videoOne') videoOne: ElementRef;
+  @ViewChild('videoTwo') videoTwo: ElementRef;
+  @ViewChild('videoThree') videoThree: ElementRef;
   videoUrl = VIDEO_BASE_URL + VIDEO_ONE + VIDEO_FORMAT;
   videoVtt = VIDEO_BASE_URL + VIDEO_ONE + FORMAT_VTT;
   videoUrlTwo = VIDEO_BASE_URL + VIDEO_TWO + VIDEO_FORMAT;

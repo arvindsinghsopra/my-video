@@ -17,8 +17,8 @@ export class TimelineComponent implements OnInit, AfterViewInit {
   endTime: Date;
   playpause = true;
 
-  @ViewChild('slider', { static: false }) slider: ElementRef;
-  @ViewChild('sliderPosition', { static: false }) sliderPosition: ElementRef;
+  @ViewChild('slider') slider: ElementRef;
+  @ViewChild('sliderPosition') sliderPosition: ElementRef;
   constructor(private cdRef: ChangeDetectorRef, private videotem: VideoTemplateService, private videoService: VideoService) { }
 
   ngOnInit(): void {

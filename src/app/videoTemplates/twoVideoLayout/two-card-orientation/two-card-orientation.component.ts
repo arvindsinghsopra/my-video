@@ -19,8 +19,8 @@ export class TwoCardOrientationComponent
   endTimeTwo: Date;
   sliderStartTime: Date;
   sliderEndTime: Date;
-  @ViewChild('videoOne', { static: false }) videoOne: ElementRef;
-  @ViewChild('videoTwo', { static: false }) videoTwo: ElementRef;
+  @ViewChild('videoOne') videoOne: ElementRef;
+  @ViewChild('videoTwo') videoTwo: ElementRef;
   videoUrl = VIDEO_BASE_URL + VIDEO_ONE + VIDEO_FORMAT;
   videoVtt = VIDEO_BASE_URL + VIDEO_ONE + FORMAT_VTT;
   videoUrlTwo = VIDEO_BASE_URL + VIDEO_TWO + VIDEO_FORMAT;

@@ -14,7 +14,7 @@ export class SingleCardOrientationComponent
   loadedVtt = true;
   videoUrl = VIDEO_BASE_URL + VIDEO_ONE + VIDEO_FORMAT;
   videoVtt = VIDEO_BASE_URL + VIDEO_ONE + FORMAT_VTT;
-  @ViewChild('videoOne', { static: false }) videoOne: ElementRef;
+  @ViewChild('videoOne') videoOne: ElementRef;
 
   constructor(
     private videotem: VideoTemplateService,
@@ -57,7 +57,7 @@ export class SingleCardOrientationComponent
     this.videoService.getGMT(req).subscribe(
       res => {
         const items = res.split('\n');
-        console.log("items:", items);
+        console.log('items:', items);
         // method calling
         this.ShareStarendTime(startTime, new Date(items[items.length - 2]));
       },
