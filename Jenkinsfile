@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 def templatePath = 'https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json'
 def templateName = 'nodejs-mongodb-example'
@@ -257,3 +258,22 @@ pipeline {
     }
 
 }
+=======
+pipeline {
+  agent {
+    node {
+      label 'nodejs'
+    }
+
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh 'node --version'
+        sh 'npm --version'
+        sh 'npm install'
+      }
+    }
+  }
+}
+>>>>>>> c748f35e2a2d4ba7dc4da7aa1b25df3b9c74bc61
