@@ -18,7 +18,7 @@ pipeline {
         EXECUTE_BUILD_STAGE = "true"
 
         APPLICATION_NAME = 'video-tool-app'
-        GIT_REPO = "https://github.com/Pallav695193/Video-Copy.git"
+        GIT_REPO = "https://github.com/arvindsinghsopra/my-video.git"
         GIT_BRANCH = "master"
         STAGE_TAG = "promoteToQA"
         DEV_TAG = "1.0"
