@@ -18,7 +18,7 @@ pipeline {
         EXECUTE_BUILD_STAGE = "true"
 
         APPLICATION_NAME = 'video-tool-app'
-        GIT_REPO = "https://github.com/arvindsinghsopra/my-video.git"
+        GIT_REPO = "https://github.com/Pallav695193/Video-Copy.git"
         GIT_BRANCH = "master"
         STAGE_TAG = "promoteToQA"
         DEV_TAG = "1.0"
@@ -28,7 +28,6 @@ pipeline {
         ARTIFACT_FOLDER = "target"
         PORT = 80;
         MAIL_TO = 'ashish.mishra2@soprasteria.com,arvind.singh@soprasteria.com,pallav.narang@soprasteria.com,jenkinstestuser01@gmail.com'
-
     }
 
     stages {
@@ -61,16 +60,16 @@ pipeline {
 
             failFast true
             parallel {
-                stage('Prettier'){
-                    when {
-                        environment name: "EXECUTE_VALID_PRETTIER_STAGE", value: "true"
-                    }
-                    steps{
-                        echo 'Validation Stage - prettier'
-                        //sh 'npm run prettier:check'
-                    }
-                }
-                stage('Tslint'){
+                // stage('Prettier'){
+                //     when {
+                //         environment name: "EXECUTE_VALID_PRETTIER_STAGE", value: "true"
+                //     }
+                //     steps{
+                //         echo 'Validation Stage - prettier'
+                //         //sh 'npm run prettier:check'
+                //     }
+                // }
+                stage('Linting'){
                     when {
                         environment name: "EXECUTE_VALID_TSLINT_STAGE", value: "true"
                     }
@@ -79,14 +78,14 @@ pipeline {
                         sh 'npm run lint'
                     }
                 }
-                stage('test'){
+                stage('Unit Test'){
                     when {
                         environment name: "EXECUTE_TEST_STAGE", value: "true"
                     }
                     steps{
                         script{
                             echo 'Test Stage - Launching unit tests'
-                            sh 'npm run test'
+                             sh 'npm run test --code-coverage'
                         }
                     }
                 }
@@ -99,6 +98,26 @@ pipeline {
                 }
             }
         }
+         stage('Sonar Report') {
+            steps {
+                script {
+                    sh 'npm run sonar'
+                    }
+            }
+        }
+        // stage('Quality Gates') {
+        //     environment {
+        //         scannerHome = tool 'sonarqube-scanner'
+        //     }
+        //     steps {
+        //         withSonarQubeEnv('sonarqube') {
+        //             sh "${scannerHome}/bin/sonar-scanner"
+        //         }
+        //         timeout(time: 10, unit: 'MINUTES') {
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
         stage('Store Artifact'){
             steps{
                 script{
@@ -173,9 +192,9 @@ pipeline {
                             def app = openshift.newApp("${TEMPLATE_NAME}:latest")
                             app.narrow("svc").expose("--port=${PORT}");
                             def dc = openshift.selector("dc", "${TEMPLATE_NAME}")
-                            while (dc.object().spec.replicas != dc.object().status.availableReplicas) {
-                                // sleep 1
-                            }
+                            // while (dc.object().spec.replicas != dc.object().status.availableReplicas) {
+                            //     // sleep 1
+                            // }
                         }
                     }
                 }
@@ -214,7 +233,7 @@ pipeline {
         stage('Scale in STAGE') {
             steps {
                 script {
-                    openshiftScale(namespace: "${STAGE_PROJECT}", deploymentConfig: "${TEMPLATE_NAME}", replicaCount: '2')
+                    openshiftScale(namespace: "${STAGE_PROJECT}", deploymentConfig: "${TEMPLATE_NAME}", replicaCount: '1')
                 }
             }
         }
@@ -241,6 +260,7 @@ pipeline {
                         //emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
                         mimeType: 'text/html',
                         subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}",
+                        //  subject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!",
                         to: "${MAIL_TO}",
                         replyTo: "${MAIL_TO}"
         }
@@ -249,6 +269,7 @@ pipeline {
                         emailext body: '''${SCRIPT, template="groovy-html.template"}''',
                         mimeType: 'text/html',
                         subject: "[Jenkins] ${currentBuild.fullDisplayName}",
+                        //   subject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!",
                         to: "${MAIL_TO}",
                         replyTo: "${MAIL_TO}",
                         recipientProviders: [[$class: 'CulpritsRecipientProvider']]
@@ -257,4 +278,3 @@ pipeline {
     }
 
 }
-
