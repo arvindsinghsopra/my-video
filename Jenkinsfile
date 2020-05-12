@@ -98,13 +98,13 @@ pipeline {
                 }
             }
         }
-         stage('Sonar Report') {
-            steps {
-                script {
-                    sh 'npm run sonar'
-                    }
-            }
-        }
+        // stage('Sonar Report') {
+        //    steps {
+        //        script {
+        //            sh 'npm run sonar'
+        //            }
+      //      }
+       // }
         // stage('Quality Gates') {
         //     environment {
         //         scannerHome = tool 'sonarqube-scanner'
