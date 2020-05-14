@@ -22,12 +22,12 @@ pipeline {
         GIT_BRANCH = "master"
         STAGE_TAG = "promoteToQA"
         DEV_TAG = "1.0"
-        DEV_PROJECT = "dev-arv"
-        STAGE_PROJECT = "stage-arv"
+        DEV_PROJECT = "dev"
+        STAGE_PROJECT = "stage"
         TEMPLATE_NAME = "video-tool-app"
         ARTIFACT_FOLDER = "target"
         PORT = 80;
-        MAIL_TO = 'ashish.mishra2@soprasteria.com,arvind.singh@soprasteria.com,pallav.narang@soprasteria.com,jenkinstestuser01@gmail.com,astha.bansal@soprasteria.com,nishant-kumar.sood@soprasteria.com'
+        MAIL_TO = 'ashish.mishra2@soprasteria.com,arvind.singh@soprasteria.com,pallav.narang@soprasteria.com,jenkinstestuser01@gmail.com'
     }
 
     stages {
